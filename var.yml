@@ -1,0 +1,12 @@
+---
+- name: for variable
+  hosts: all
+  become: true
+  #  vars:
+  #  pkg: lsscsi
+
+  tasks:
+  - name: install "{{ pkg }}"
+    package:
+      name: "{{ pkg }}"
+      state: present
