@@ -1,0 +1,5 @@
+ansible-vault create credfile {create new file}
+ansible-vault view credfile 
+ansible-vault edit credfile
+ansible-vault decrypt credfile
+ansible-vault encrypt credfile
