@@ -1,0 +1,35 @@
+---
+- name: playbook variable
+  hosts: all
+  vars:
+    web: apache2
+    web_root: /var/www/html
+
+  tasks:
+    - name: Install package
+      apt:
+        name:
+          - "{{ web }}"
+        state: present
+
+    - name: start "{{ web }}" service
+      service:
+        name: "{{ web }}"
+        state: started
+
+    - name: create document root "{{ web_root }}"
+      file:
+        path: "{{ web_root }}"
+        state: directory
+
+    - name: copy Index.html into "{{ web_root }}"
+      copy:
+              content: "Hello India!\n"
+              dest: "{{ web_root }}/index.html"
+      notify: restart "{{ web }}"
+
+    - name: restart "{{ web }}"
+      service:
+        name: "{{ web }}"
+        state: restarted
+
