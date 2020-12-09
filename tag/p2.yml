@@ -1,0 +1,20 @@
+- name: Example of tagging
+  hosts: all
+  become: true
+  tasks:
+    - file:
+        path: /tmp/test
+        state: directory
+      tags: test
+
+    - copy:
+        src: /etc/fstab
+        dest: /tmp/fstab
+      tags: fstab
+
+    - yum:
+        name: vsftpd
+        state: latest
+      tags: 
+       - yum
+       - package

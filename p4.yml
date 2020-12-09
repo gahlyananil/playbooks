@@ -1,0 +1,19 @@
+## Format: Single Line, Multi Line, Dictonary
+#
+- name: Welcome to playbook
+  hosts: all
+  become: true
+  tasks:
+    - name: Single Line
+      file: path=/tmp/test state=directory mode=0777
+
+    - name: Multi Line
+      file: path=/tmp/test
+            state=directory
+            mode=0777
+
+    - name: Dictonary Format
+      file:
+        path: /tmp/test
+        state: directory
+        mode: 0777

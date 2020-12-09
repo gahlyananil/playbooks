@@ -1,0 +1,16 @@
+## Ansible facts
+- name: Example of Ansible Facts
+  hosts: all
+  become: true
+  tasks:
+  - name: store kernel version into /etc/motd
+    copy:
+            content: |
+                    "your kernel version is {{ ansible_kernel }} and your total free memory is {{ ansible_memfree_mb}} Mi"
+            dest: /etc/motd
+
+
+  - name: Add ip-address & hostname to /etc/hosts file
+    lineinfile:
+            line: "{{ ansible_default_ipv4.address }} {{ ansible_fqdn }} {{ ansible_hostname }}"
+            dest: /etc/hosts

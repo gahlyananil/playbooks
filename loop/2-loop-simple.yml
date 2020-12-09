@@ -1,0 +1,21 @@
+- name: Example of simple loop
+  hosts: all
+  become: true
+  tasks:
+  - name: add users
+    user:
+      name: "{{ item }}"
+      state: present
+    with_items:
+      - c
+      - d
+      
+
+   - name: add more users
+    user:
+      name: "{{ item }}"
+      state: present
+    loop:
+      - e
+      - f
+

@@ -1,0 +1,27 @@
+- name: Example of simple loop
+  hosts: all
+  become: true
+  vars:
+          myfile:
+            - /etc/passwd
+            - /etc/group
+            - /etc/fstab
+          mydirs:
+            - /root
+            - /opt
+            - /tmp
+  tasks:
+  - name: copy /etc/passwd fstab group
+    copy:
+      src: "{{ item }}"
+      dest: /tmp
+    with_items:
+      - "{{ myfile }}"
+
+  - name: copy /etc/fstab into mydirs
+    copy:
+      src: /etc/fstab
+      dest: "{{ item }}"
+    with_items:
+      - "{{ mydirs }}"
+

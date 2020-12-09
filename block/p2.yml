@@ -1,0 +1,25 @@
+- name: Example of block with rescue
+  hosts: all
+  become: true
+  tasks:
+    - block:
+        - debug:
+                msg: "Task1 block"
+        
+        - name: Database
+          get_url:
+                  url: "http://www.google.com"
+                  dest: /tmp
+
+        - debug:
+                msg: "Update database"
+
+      rescue:
+              - debug:
+                      msg: "Database Rollback"
+
+      always:
+              - debug:
+                      msg: "Restart Database"
+
+

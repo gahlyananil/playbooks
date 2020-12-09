@@ -1,0 +1,11 @@
+- name: Example of Template Files
+  hosts: all
+  gather_facts: true
+  become: true
+  vars:
+    deploy_path: /var/www/html
+  tasks:
+    - name: Copy modt.j2 file
+      template:
+        src: motd.j2
+        dest: /etc/motd

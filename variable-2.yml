@@ -1,0 +1,29 @@
+##Use variable files
+
+- name: Example of playbook variable
+  hosts: all
+  become: true
+  vars_files:
+          - /root/playbooks/variable_file
+
+  tasks:
+    - name: install the package
+      apt:
+        name: "{{ web }}" 
+        state: latest
+
+    - name: start "{{ web }}" service 
+      service:
+        name: "{{ web }}"
+        state: started
+
+    - name: create document root "{{ web_root }}"
+      file:
+        path: "{{ web_root }}"
+        state: directory
+
+    - name: Copy Index.html page into "{{ web_root }}"
+      copy:
+        content: "Hello World\n"
+        dest: "{{ web_root }}/index.html"
+

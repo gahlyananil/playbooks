@@ -1,0 +1,22 @@
+# service
+- name: Example without setup module
+  hosts: all
+  become: true
+  gather_facts: false
+  tasks:
+    - name: check service status
+      command: systemctl is-active cron
+      register: xyz
+      ignore_errors: yes
+
+    - debug:
+        var: xyz.stdout
+
+    - name: start when service is stopped
+      service:
+        name: cron
+        state: started
+        enabled: true
+        #when: xyz.rc != 0
+      when: xyz.stdout == "inactive"
+

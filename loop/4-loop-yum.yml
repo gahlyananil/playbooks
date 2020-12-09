@@ -1,0 +1,33 @@
+- name: Example of simple loop
+  hosts: all
+  become: true
+  tasks:
+    - name: yum without loop
+      yum:
+        name:
+          - ftp
+          - vsftpd
+        state: present
+
+    - name: yum with loop
+      yum:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - ftp
+        - vsftpd
+
+    - name: add user with loop
+      user:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - g
+        - h
+    
+    - name: add user without loop
+      user:
+        name:
+          - i
+          - j
+        state: present

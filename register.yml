@@ -1,0 +1,16 @@
+##Use case of register 
+
+- hosts: all
+  gather_facts: false
+  tasks:
+    - name: check kernel version
+      command: uname -r
+      register: xyz
+
+    - debug:
+        var: xyz.stdout
+
+    - name: Copy kernel version into /etc/motd file
+      copy:
+        content: "{{ xyz.stdout }}"
+        dest: /etc/motd

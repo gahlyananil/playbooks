@@ -1,0 +1,13 @@
+- name: create hwreport
+  hosts: all
+  become: true
+  tasks:
+    - name: first check disk state
+      stat:
+              path: /dev/sdb
+      register: file
+
+    - name: Copy hwreport
+      template:
+              src: hwreport.txt
+              dest: /etc/hwreport.txt

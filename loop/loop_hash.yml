@@ -1,0 +1,24 @@
+- name: Example of hash loop
+  hosts: all
+  tasks:
+    - name: add group
+      group:
+        name: "{{ item }}"
+        state: present
+      with_items:
+              - manager
+              - guests
+              - smanager
+
+    - name: add user into groups
+      user:
+        name: "{{ item.x }}"
+        state: present
+        group: "{{ item.y }}"
+        password: "{{ item.p | password_hash('sha512') }}"
+      with_items:
+        - { x: 'ravi', y: 'manager', p: 'redhat' }
+        - { x: 'shyam', y: 'guests', p: 'redhat123' }
+        - { x: 'minu', y: 'manager', p: 'test123' }
+
+

@@ -1,0 +1,9 @@
+- name : install crond
+  apt: 
+    name: cron
+    state: present
+
+- name: start cron
+  service:
+    name: cron
+    state: started

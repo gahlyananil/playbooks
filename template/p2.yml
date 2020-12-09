@@ -1,0 +1,9 @@
+# Template with loop
+- hosts: all
+  become: true
+  tasks:
+    - name: copy hosts.j2
+      template:
+        src: hosts.j2
+        dest: /etc/myhosts
+      when: inventory_hostname in groups['server2']

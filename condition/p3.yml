@@ -1,0 +1,19 @@
+#ansible all -m copy -a "content='Hello, India' dest=/etc/abc.conf" -b
+- name: Example of condition
+  hosts: all
+  become: true
+  tasks:
+    - name: Check file existance
+      stat:
+        path: /etc/abc.conf
+      register: xyz
+
+    - debug:
+            var: xyz
+
+    - name: create file if not exists
+      copy:
+        content: "Hello, India\n"
+        dest: /etc/abc.conf
+      when: xyz.stat.exists == false
+

@@ -1,0 +1,13 @@
+- hosts: all
+  become: true
+  tasks:
+          #    - copy:
+          #            src: hosts3.j2
+          #            dest: /etc/myhosts
+
+    - lineinfile:
+            line: '{{ hostvars[item].ansible_default_ipv4.address }} {{ hostvars[item].ansible_fqdn}} {{ item }}'
+            dest: /etc/myhosts
+      with_items: "{{ groups.all }}"
+      when: inventory_hostname in groups ['server2']
+

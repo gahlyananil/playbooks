@@ -1,0 +1,13 @@
+- name: Example of without loop
+  hosts: all
+  become: true
+  tasks:
+  - name: add user a
+    user:
+      name: a
+      state: present
+
+  - name: add user b
+    user:
+      name: b
+      state: present

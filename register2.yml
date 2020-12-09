@@ -1,0 +1,16 @@
+- hosts: all
+  become: true
+  tasks:
+    - name: first check file exists
+      stat:
+        path: /tmp/abc.conf
+      register: file
+
+    - debug:
+        var: file.stat.exists
+
+    - name: Create file if does not exist
+      copy:
+              content: "Hi, Thanks for create file"
+              dest: /tmp/abc.conf
+      when: file.stat.exists == false

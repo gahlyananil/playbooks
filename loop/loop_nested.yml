@@ -1,0 +1,30 @@
+- name: Example of nested loop
+  hosts: all
+  become: yes
+  vars:
+    myusers:
+      - ravi
+      - shyam
+      - manish
+    mygroups:
+       - manager
+       - guests
+       - staff
+
+  tasks:
+    - name: add group
+      group:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - "{{ mygroups }}"
+
+    - name: add users into group
+      user:
+        name: "{{ item[0] }}"
+        state: present
+        group: "{{ item[1] }}"
+        append: yes
+      with_nested:
+        - "{{ myusers }}"
+        - "{{ mygroups }}"

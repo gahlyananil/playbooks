@@ -1,0 +1,29 @@
+# ansible all -m setup -a "filter=ansible_distri*"
+#
+- name: Example of condition
+  hosts: all
+  become: true
+  tasks:
+    - name: install ftp
+      apt:
+              name: ftp
+              state: latest
+      when: ansible_distribution == 'Ubuntu'
+
+    - name: install apache2
+      apt:
+              name: apache2
+              state: latest
+      when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == 18.04
+
+    - name: install wget
+      package:
+              name: wget
+              state: latest
+      when: ansible_distribution == 'Ubuntu' or "Redhat"
+
+    - name: install wget
+      package:
+              name: wget
+              state: latest
+      when: (ansible_distribution == 'Ubuntu' and ansible_distribution_version == 18.04) or (ansible_distribution == 'Redhat' and ansible_distribution_version == 7.5)

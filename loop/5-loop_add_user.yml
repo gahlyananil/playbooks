@@ -1,0 +1,13 @@
+- name: Example of simple loop
+  hosts: all
+  become: true
+  vars_files:
+    - user_list.yml
+
+  tasks:
+    - name: add user
+      user:
+        name: "{{ item }}"
+        state: present
+        password: "{{ item | password_hash('sha512') }}"
+      loop: "{{ myusers }}"

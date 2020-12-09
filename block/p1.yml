@@ -1,0 +1,17 @@
+- name: Example of Block without rescue
+  hosts: all
+  become: true
+  tasks:
+    - block:
+      - name: install ftp
+        apt:
+          name: ftp
+          state: present
+
+      - name: start vsftpd
+        apt:
+          name: vsftpd
+          state: present
+
+      when: ansible_distribution == 'Ubuntu'
+

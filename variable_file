@@ -1,0 +1,5 @@
+web: apache2
+web_root: /var/www/html
+abc:
+  - vasftpd
+  - postfix

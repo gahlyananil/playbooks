@@ -1,0 +1,30 @@
+## Import tasks
+
+---
+- hosts: all
+  become: true
+  gather_facts: false
+  tasks:
+
+    - name: create file
+      file:
+        path: /tmp/test
+        state: directory
+
+    - name: copy file
+      copy: 
+        src: /etc/fstab
+        dest: /tmp/test
+
+    - name: restart service
+      service:
+        name: cron
+        state: restarted
+
+    - name: install package
+      apt:
+        name: vsftpd
+        state: present
+
+    - name: Include other tasks
+      import_tasks: /root/playbooks/common.yml

@@ -1,0 +1,9 @@
+- hosts: all
+  become: true
+  tasks:
+  - name: create /etc/hosts file
+    lineinfile:
+      path: /etc/hosts
+      line: "{{ hostvars[item].ansible_eth0.ipv4.address }} {{ hostvars[item].ansible_fqdn }} {{ item }}"
+      state: present
+    with_items: '{{ groups.all }}'
